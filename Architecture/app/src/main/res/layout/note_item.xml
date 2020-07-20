@@ -26,13 +26,16 @@
             android:maxLines="1"
             android:text="Title"
             android:textStyle="italic"
+            android:layout_marginBottom="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         <TextView
+            android:layout_marginTop="5dp"
             android:id="@+id/text_view_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_title"
             android:text="Description"
+            android:textSize="20dp"
             android:textStyle="italic"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
