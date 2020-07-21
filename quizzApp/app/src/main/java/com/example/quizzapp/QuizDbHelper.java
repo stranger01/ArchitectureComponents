@@ -2,12 +2,16 @@ package com.example.quizzapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.quizzapp.QuizContract.*;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "MyAwesomeQuiz.db";
@@ -43,30 +47,54 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    private void fillQuestionsTable(){
-        Question q1 = new Question("A is correct", "A" , "B", "C", 1 );
+    private void fillQuestionsTable() {
+        Question q1 = new Question("A is correct", "A", "B", "C", 1);
         addQuestion(q1);
 
-        Question q2 = new Question("B is correct", "A" , "B", "C", 2 );
+        Question q2 = new Question("B is correct", "A", "B", "C", 2);
         addQuestion(q2);
 
-        Question q3 = new Question("C is correct", "A" , "B", "C", 3 );
+        Question q3 = new Question("C is correct", "A", "B", "C", 3);
         addQuestion(q3);
 
-        Question q4 = new Question("D is correct", "A" , "B", "C", 4 );
+        Question q4 = new Question("D is correct", "A", "B", "C", 4);
         addQuestion(q4);
 
-        Question q5 = new Question("E is correct", "A" , "B", "C", 5);
+        Question q5 = new Question("E is correct", "A", "B", "C", 5);
         addQuestion(q5);
     }
 
-    private void addQuestion(Question question){
+    private void addQuestion(Question question) {
         ContentValues cv = new ContentValues();
-        cv.put(QuestionsTable.COLUMN_QUESTION ,question.getQuestion());
+        cv.put(QuestionsTable.COLUMN_QUESTION, question.getQuestion());
         cv.put(QuestionsTable.COLUMN_OPTION1, question.getOption1());
         cv.put(QuestionsTable.COLUMN_OPTION2, question.getOption2());
         cv.put(QuestionsTable.COLUMN_OPTION3, question.getOption3());
         cv.put(QuestionsTable.COLUMN_ANSWER_NR, question.getAnswerNr());
         db.insert(QuestionsTable.TABLE_NAME, null, cv);
+    }
+
+    public List<Question> getAllQuestions() {
+        List<Question> questionList = new ArrayList<>();
+        db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + QuestionsTable.TABLE_NAME, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Question question = new Question();
+                question.setQuestion(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_QUESTION)));
+                question.setOption1(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION1)));
+                question.setOption2(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION2)));
+                question.setOption3(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION3)));
+                question.setAnswerNr(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_ANSWER_NR)));
+                questionList.add(question);
+
+
+            } while (c.moveToNext());
+        }
+
+        c.close();
+        return questionList;
+
     }
 }
