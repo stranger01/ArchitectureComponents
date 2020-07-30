@@ -1,4 +1,4 @@
-package com.example.smackapp.ui
+package com.example.smackapp.Controller
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

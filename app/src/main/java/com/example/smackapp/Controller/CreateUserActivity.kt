@@ -1,4 +1,4 @@
-package com.example.smackapp.ui
+package com.example.smackapp.Controller
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,8 @@ import kotlinx.android.synthetic.main.activity_create_user.*
 import java.util.*
 
 class CreateUserActivity : AppCompatActivity() {
+
+
     var userAvatar = "profileDefault"
     var avatarColor = "[0.5,0.5,0.5,1]"
 
@@ -66,4 +68,5 @@ class CreateUserActivity : AppCompatActivity() {
     fun createUserClicked() {
 
     }
+    
 }
