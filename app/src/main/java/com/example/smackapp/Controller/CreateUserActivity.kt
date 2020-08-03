@@ -4,7 +4,9 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.smackapp.R
+import com.example.smackapp.Services.AuthService
 import kotlinx.android.synthetic.main.activity_create_user.*
 import java.util.*
 
@@ -66,7 +68,39 @@ class CreateUserActivity : AppCompatActivity() {
     }
 
     fun createUserClicked() {
+        AuthService.registerUser(this, "jose@core.com", "123456") {complete ->
+
+            if (complete)
+
+                Toast.makeText(applicationContext,"this is toast message",Toast.LENGTH_SHORT).show()
+        }
 
     }
-    
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
