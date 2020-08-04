@@ -67,16 +67,23 @@ class CreateUserActivity : AppCompatActivity() {
 
     }
 
-    fun createUserClicked() {
-        AuthService.registerUser(this, "jose@core.com", "123456") {complete ->
+    fun createUser(view: View) {
 
-            if (complete)
+        val email = createEmailTxt.text.toString()
+        val password = createPassTxt.text.toString()
 
-                Toast.makeText(applicationContext,"this is toast message",Toast.LENGTH_SHORT).show()
+        AuthService.registerUser(this, email, password) { registerSuccess ->
+            if (registerSuccess) {
+                AuthService.loginUser(this, email, password) { loginSucess ->
+                    if (loginSucess) {
+
+                        Toast.makeText(this, "Registro", Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+            }
         }
-
     }
-
 }
 
 
