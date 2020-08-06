@@ -1,5 +1,6 @@
 package com.example.smackapp.Controller
 
+import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,7 @@ class CreateUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
+        createSpinner.visibility = View.INVISIBLE
     }
 
     /**
@@ -69,6 +71,7 @@ class CreateUserActivity : AppCompatActivity() {
 
     fun createUser(view: View) {
 
+        enableSpinner(true)
         val userName = createUsernameTxt.text.toString()
         val email = createEmailTxt.text.toString()
         val password = createPassTxt.text.toString()
@@ -77,8 +80,15 @@ class CreateUserActivity : AppCompatActivity() {
             if (registerSucces) {
                 AuthService.loginUser(this, email, password) { loginSucess ->
                     if (loginSucess) {
-                        AuthService.createUser(this, userName, email, userAvatar, avatarColor) { createSucess ->
+                        AuthService.createUser(
+                            this,
+                            userName,
+                            email,
+                            userAvatar,
+                            avatarColor
+                        ) { createSucess ->
                             if (createSucess) {
+                                enableSpinner(false)
                                 finish()
 
                             }
@@ -87,6 +97,26 @@ class CreateUserActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun errorToast(){
+
+        Toast.makeText(this, "something went really bad", Toast.LENGTH_SHORT).show()
+        enableSpinner(false)
+
+
+    }
+
+
+    fun enableSpinner(enable: Boolean) {
+        if (enable) {
+            createSpinner.visibility = View.VISIBLE
+        } else {
+            createSpinner.visibility = View.INVISIBLE
+        }
+        createCreateUserBtn.isEnabled = !enable
+        createAvatarImageView.isEnabled = !enable
+        createBackgroundColorBtn.isEnabled = !enable
     }
 }
 
