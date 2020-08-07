@@ -1,13 +1,16 @@
 package com.example.smackapp.Controller
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.smackapp.R
 import com.example.smackapp.Services.AuthService
+import com.example.smackapp.Utilities.BROADCAST_USER_DATA_CHANGE
 import kotlinx.android.synthetic.main.activity_create_user.*
 import java.util.*
 
@@ -69,37 +72,53 @@ class CreateUserActivity : AppCompatActivity() {
 
     }
 
-    fun createUser(view: View) {
+    fun createUserClicked(view: View) {
 
         enableSpinner(true)
         val userName = createUsernameTxt.text.toString()
         val email = createEmailTxt.text.toString()
         val password = createPassTxt.text.toString()
 
-        AuthService.registerUser(this, email, password) { registerSucces ->
-            if (registerSucces) {
-                AuthService.loginUser(this, email, password) { loginSucess ->
-                    if (loginSucess) {
-                        AuthService.createUser(
-                            this,
-                            userName,
-                            email,
-                            userAvatar,
-                            avatarColor
-                        ) { createSucess ->
-                            if (createSucess) {
-                                enableSpinner(false)
-                                finish()
+        if (!userName.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+            AuthService.registerUser(this, email, password) { registerSucces ->
+                if (registerSucces) {
+                    AuthService.loginUser(this, email, password) { loginSucess ->
+                        if (loginSucess) {
+                            AuthService.createUser(
+                                this,
+                                userName,
+                                email,
+                                userAvatar,
+                                avatarColor
+                            ) { createSucess ->
+                                if (createSucess) {
 
+                                    val userDataChange = Intent(BROADCAST_USER_DATA_CHANGE)
+                                    LocalBroadcastManager.getInstance(this)
+                                        .sendBroadcast(userDataChange)
+
+                                    enableSpinner(false)
+                                    finish()
+
+                                } else {
+                                    errorToast()
+                                }
                             }
+                        } else {
+                            errorToast()
                         }
                     }
+                } else {
+                    errorToast()
                 }
             }
+        } else {
+            Toast.makeText(this, "fill all fields", Toast.LENGTH_SHORT).show()
+            enableSpinner(false)
         }
     }
 
-    fun errorToast(){
+    fun errorToast() {
 
         Toast.makeText(this, "something went really bad", Toast.LENGTH_SHORT).show()
         enableSpinner(false)
