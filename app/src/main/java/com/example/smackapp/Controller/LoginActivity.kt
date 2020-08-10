@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.smackapp.MainActivity
 import com.example.smackapp.R
 
 class LoginActivity : AppCompatActivity() {
@@ -12,7 +13,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
     }
 
-    fun loginLoginBtnClicked(view: View) {
+    fun loginLoginUserClicked(view: View) {
+        val login = Intent(this, MainActivity::class.java)
+        startActivity(login)
 
     }
 
