@@ -14,8 +14,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun loginLoginUserClicked(view: View) {
-        val login = Intent(this, MainActivity::class.java)
-        startActivity(login)
+
 
     }
 
@@ -23,8 +22,35 @@ class LoginActivity : AppCompatActivity() {
 
         val createUserIntent = Intent(this, CreateUserActivity::class.java)
         startActivity(createUserIntent)
+        finish()
 
 
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

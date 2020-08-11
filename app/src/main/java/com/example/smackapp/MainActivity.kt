@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.Bundle
-import android.service.autofill.UserData
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -43,6 +43,11 @@ class MainActivity : AppCompatActivity() {
                     packageName
                 )
                 userImageNavHeader.setImageResource(resourceId)
+                userImageNavHeader.setBackgroundColor(
+                    UserDataService.returnAvatarColor(
+                        UserDataService.avatarColor
+                    )
+                )
                 loginBtnNavHeader.text = "Logout"
 
             }
@@ -57,8 +62,22 @@ class MainActivity : AppCompatActivity() {
 
     fun loginBtnNavClicked(view: View) {
 
-        val loginIntent = Intent(this, LoginActivity::class.java)
-        startActivity(loginIntent)
+        if (AuthService.isLoggedIn) {
+
+            UserDataService.logout()
+            userNameNavHeader.text = "Login"
+            userEmailNavHeader.text = ""
+            userImageNavHeader.setImageResource(R.drawable.profiledefault)
+            userImageNavHeader.setBackgroundColor(Color.TRANSPARENT)
+            loginBtnNavHeader.text = "Login"
+
+        } else {
+
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+
+        }
+
 
     }
 
