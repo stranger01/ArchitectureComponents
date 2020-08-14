@@ -1,16 +1,17 @@
 package com.example.smackapp.Controller
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.example.smackapp.MainActivity
 import com.example.smackapp.R
 import com.example.smackapp.Services.AuthService
 import kotlinx.android.synthetic.main.activity_create_user.*
 import kotlinx.android.synthetic.main.activity_login.*
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,9 +33,10 @@ class LoginActivity : AppCompatActivity() {
 
         val email = loginEmailTxt.text.toString()
         val password = loginPassTxt.text.toString()
+        hideKeyboard()
 
-
-
+        // Verifies if the fields aren't empty, calls the loginUser function,
+        // then findUserbyEmail to make the login
         if(email.isNotEmpty() && password.isNotEmpty()){
             AuthService.loginUser(this, email, password){ loginSuccess ->
                 if(loginSuccess){
@@ -73,4 +75,11 @@ class LoginActivity : AppCompatActivity() {
         loginCreateUserBtn.isEnabled = !enable
     }
 
+    fun hideKeyboard(){
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        if(inputManager.isAcceptingText){
+            inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        }
+    }
 }
