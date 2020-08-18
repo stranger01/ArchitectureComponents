@@ -18,10 +18,14 @@ import com.example.smackapp.Controller.LoginActivity
 import com.example.smackapp.Services.AuthService
 import com.example.smackapp.Services.UserDataService
 import com.example.smackapp.Utilities.BROADCAST_USER_DATA_CHANGE
+import com.example.smackapp.Utilities.SOCKET_URL
+import io.socket.client.IO
 import kotlinx.android.synthetic.main.nav_header_main.*
 import java.util.zip.Inflater
 
 class MainActivity : AppCompatActivity() {
+
+    val socket = IO.socket(SOCKET_URL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +34,27 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         hideKeyboard()
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         LocalBroadcastManager.getInstance(this).registerReceiver(
             userDataChangeReceiver,
             IntentFilter(BROADCAST_USER_DATA_CHANGE)
         )
+        socket.connect()
 
+    }
 
+    override fun onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReceiver)
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        socket.disconnect()
+        super.onDestroy()
     }
 
     private val userDataChangeReceiver = object : BroadcastReceiver() {
@@ -102,9 +121,12 @@ class MainActivity : AppCompatActivity() {
                     hideKeyboard()
 
 
+                    socket.emit("newChannel", channelName, channelDesc )
+
+
                 }
 
-                .setNegativeButton("Cancel") { dialogInterface, i ->
+                .setNegativeButton("Cancel") { _, _ ->
 
                     hideKeyboard()
 
