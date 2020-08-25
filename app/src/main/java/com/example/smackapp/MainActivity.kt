@@ -21,7 +21,6 @@ import com.example.smackapp.Utilities.BROADCAST_USER_DATA_CHANGE
 import com.example.smackapp.Utilities.SOCKET_URL
 import io.socket.client.IO
 import kotlinx.android.synthetic.main.nav_header_main.*
-import java.util.zip.Inflater
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,13 +46,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReceiver)
-        super.onPause()
-    }
-
     override fun onDestroy() {
         socket.disconnect()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReceiver)
+
         super.onDestroy()
     }
 
