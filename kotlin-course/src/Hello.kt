@@ -14,7 +14,7 @@ fun main() {
 
     var isYoung = age < 50
 
-    println(isYoung)
+    println("Jose is isYoung? ${age}")
 
 
 
@@ -23,5 +23,20 @@ fun main() {
     } else {
         println("pedile permiso a tu mama")
     }
+
+
+    //Array and Lists
+
+    var names = listOf("Jose", "Antonio", "Martinez", "Perez")
+    println(names[1])
+
+
+    var countries = mutableListOf("El Salvador", "Guatemala", "Colombia")
+    countries[0] = "United States"
+    countries.add(3, "Chile")
+    print(countries[3])
+
+
+
 
 }
