@@ -6,33 +6,22 @@
 fun main() {
 
 
-    var age: Int = 30
-    println(age)
+    var age = 30
+    var weight = 135.2
+    var name = "jose"
+    var married = true
+    var willingToRelocate = false
 
-    //mi nombre no cambia
-    val name: String = "Jose Antonio Martinez "
-    println(name)
+    var isYoung = age < 50
 
-    //ni mi altura
-    val height: Double = 1.69
-    println(height)
-
-    //Math
-
-    var wallet = 100
-
-    wallet -= 5
-
-    println(wallet)
+    println(isYoung)
 
 
-    var pi = 3.14
 
-    var radious = 3
-
-    var result : Int = pi.toInt() * radious *2
-
-    println(result)
-
+    if (isYoung) {
+        println("go ahead")
+    } else {
+        println("pedile permiso a tu mama")
+    }
 
 }
