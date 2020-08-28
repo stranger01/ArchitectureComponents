@@ -1,3 +1,5 @@
+import java.lang.Integer.sum
+
 /**
  * Aca vamos repasando lo que ha pasado
  * es importante repasar
@@ -32,11 +34,68 @@ fun main() {
 
 
     var countries = mutableListOf("El Salvador", "Guatemala", "Colombia")
-    countries[0] = "United States"
-    countries.add(3, "Chile")
-    print(countries[3])
+    println()
 
 
+    //for loop
 
+    for (country in countries) {
+        println(country)
+        println()
+    }
+
+    //maps
+
+    var ages = mapOf("Juan" to 26, "Alberto" to 31, "Jonathan" to 36, "Rafael" to 32)
+    for (participants in ages) {
+        println(participants)
+        println()
+    }
+
+    //functions
+
+    fun helloFunction() {
+        println("hello from here!")
+
+    }
+
+    for (x in 1..10) {
+        helloFunction()
+    }
+
+    fun sumAnB(num1: Int, num2: Int): Int {
+
+        return num1 + num2
+
+    }
+
+    var sum = sumAnB(4, 6)
+
+    println()
+    print("El resultado de esta suma es ${sum}")
+    println()
+
+    //Classes
+
+    class Car {
+        var brand = ""
+        var color = ""
+        var price = 0
+        var type = ""
+
+        fun infoCar(){
+            println("El color es ${color}")
+        }
+
+    }
+
+    var myCar = Car()
+    myCar.brand = "Renault"
+    myCar.color = "rojo"
+    myCar.price = 7000
+    myCar.type = "sedan"
+    myCar.infoCar()
+
+    println("el carro es ${myCar.brand}")
 
 }
