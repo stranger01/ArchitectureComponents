@@ -8,10 +8,13 @@ import retrofit2.http.GET
 
 interface WeatherApi {
     @GET("?location=sunnyvale,ca&format=json")
-    fun getForecast(): Call<List<Query>>
+    fun getForecast(): Call<List<Weather>>
 }
 
-class Query()
+class Weather(var location : WeatherQuery)
+class WeatherQuery(val results : WeatherResults)
+class WeatherResults(val channel : WeatherChannel)
+class WeatherChannel(val title : String)
 
 class WeatherRetriever {
     val service: WeatherApi
@@ -22,7 +25,7 @@ class WeatherRetriever {
        service = retrofit.create(WeatherApi::class.java)
     }
 
-    fun getForecast(callback : Callback<List<Query>>){
+    fun getForecast(callback : Callback<List<Weather>>){
         val call = service.getForecast()
         call.enqueue(callback)
     }

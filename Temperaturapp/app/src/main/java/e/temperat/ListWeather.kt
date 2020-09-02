@@ -1,10 +1,10 @@
 package e.temperat
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,18 +39,20 @@ class ListWeather : AppCompatActivity() {
 
         var retriever = WeatherRetriever()
 
-        val callback = object : Callback<List<Query>> {
+        val callback = object : Callback<List<Weather>> {
             override fun onResponse(
-                call: Call<List<Query>>,
-                response: Response<List<Query>>
+                call: Call<List<Weather>>,
+                response: Response<List<Weather>>
             ) {
-                Toast.makeText(applicationContext,"Suceed:",Toast.LENGTH_SHORT).show()
+                title = response?.body()?.toString()
+                Toast.makeText(applicationContext, "Suceed:${response?.body()}", Toast.LENGTH_SHORT)
+                    .show()
 
             }
 
-            override fun onFailure(call: Call<List<Query>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Weather>>, t: Throwable) {
 
-                Toast.makeText(applicationContext,"Failed",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
             }
 
         }
