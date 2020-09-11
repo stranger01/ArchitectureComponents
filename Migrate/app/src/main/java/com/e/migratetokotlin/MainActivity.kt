@@ -15,11 +15,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val  selectImageButton = findViewById<Button>(R.id.Select)
+        val uploadImageButton = findViewById<Button>(R.id.Upload)
 
         selectImageButton.setOnClickListener {
             pickImage()
 
         }
+
+        uploadImageButton.setOnClickListener {
+            ListImages()
+        }
+    }
+
+    private fun ListImages() {
+        val intent = Intent(baseContext, ListImagesActivity::class.java)
+        startActivity(intent)
+
     }
 
     fun pickImage(){

@@ -1,16 +1,17 @@
-
+import java.io.File
+import java.io.InputStream
 
 fun main() {
 
-    val allTheWords = "Hello there, my name is Jose, I love the fucking pizza"
+    val inputStream: InputStream = File("test.txt").inputStream()
 
-    val words = allTheWords.replace("e", "o")
+    val allTheWords = inputStream.bufferedReader().use { it.readText() }
 
-    var wordMap = mutableMapOf<String, Int>()
-    for(eachWord in words) {
-        println(eachWord)
+    val words = allTheWords.replace("a", "7").replace("b", "B").replace("c", "1")
 
+
+    for (word in words) {
+        print(word.toString())
     }
-
 
 }

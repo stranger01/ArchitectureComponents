@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="wordCounter">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="root">
+      <element id="archive" name="wordCounter.jar">
+        <element id="module-output" name="wordCounter" />
+      </element>
+    </root>
+  </artifact>
+</component>
