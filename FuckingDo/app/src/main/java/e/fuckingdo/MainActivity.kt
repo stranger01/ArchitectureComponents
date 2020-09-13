@@ -7,6 +7,8 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +22,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, AddToDoActivity::class.java)
             startActivity(intent)
         }
+
+        val realm = Realm.getDefaultInstance()
+        val query = realm.where(ToDoItem::class.java)
+        val results = query.findAll()
+
+        for (notes in results) {
+
+            Toast.makeText(this, "notes $notes", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
