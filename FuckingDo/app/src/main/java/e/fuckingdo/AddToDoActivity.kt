@@ -30,6 +30,8 @@ class AddToDoActivity : AppCompatActivity() {
             realm.copyToRealm(todo)
             realm.commitTransaction()
 
+                finish()
+
 
         }
     }

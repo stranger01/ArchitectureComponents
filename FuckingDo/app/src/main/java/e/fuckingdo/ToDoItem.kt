@@ -9,6 +9,10 @@ open class ToDoItem : RealmObject() {
     var name: String = ""
     var important: Boolean = false
 
+    override fun toString(): String {
 
+        return name
+
+    }
 
 }
