@@ -8,13 +8,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URI
 import java.util.*
 
 class DisplayRepoActivity : AppCompatActivity() {
@@ -80,8 +79,14 @@ class RepoAdapter(context: Context?, resource : Int, objects: List<Repo>?): Arra
         val inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val repoView = inflator.inflate(R.layout.repo_list_layout, parent ,false)
 
-        val textView = repoView.findViewById<TextView>(R.id.projectRepo)
+        val imageView = repoView.findViewById<ImageView>(R.id.repoImageView)
+
         val repo = getItem(position)
+
+        Picasso.with(context).load(Uri.parse(repo?.owner?.avatar_url)).into(imageView)
+
+
+        val textView = repoView.findViewById<TextView>(R.id.projectRepo)
         textView.text = repo?.full_name
 
         return repoView
