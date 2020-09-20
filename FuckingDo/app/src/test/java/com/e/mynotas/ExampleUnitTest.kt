@@ -1,4 +1,4 @@
-package e.fuckingdo
+package com.e.mynotas
 
 import org.junit.Test
 

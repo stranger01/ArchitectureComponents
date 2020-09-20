@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "FuckingDo"
+rootProject.name = "my notas"
