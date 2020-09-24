@@ -8,7 +8,21 @@ class DataManager {
 
     val notes = ArrayList<CourseInfo>()
 
-   // fun initializeCourses =
+    init {
+        initializeCourses()
+    }
+
+    private fun initializeCourses() {
+
+        var course = CourseInfo("android intents", "Android programming with intents")
+        courses[course.courseId] = course
+
+        course = CourseInfo("android async", "Android programming and services")
+
+        course = CourseInfo("Java Core", "Java fundamentals: The core platform")
+
+
+    }
 }
 
 
