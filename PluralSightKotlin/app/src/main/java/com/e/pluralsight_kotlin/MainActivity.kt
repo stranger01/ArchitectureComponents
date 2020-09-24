@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,22 +18,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        val myFav = findViewById<FloatingActionButton>(R.id.fab)
+        val dm = DataManager()
+        val adapterCourses = ArrayAdapter<CourseInfo>(
+            applicationContext,
+            android.R.layout.simple_list_item_1, dm.courses.values.toList()
+        )
+        adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        myFav.setOnClickListener { _ ->
-            val originalValue = textDisplayValue.text.toString().toInt()
-            val newValue = originalValue * 2
-            textDisplayValue.text = newValue.toString()
+        spinnerCourses.adapter = adapterCourses
 
-            Toast.makeText(
-                applicationContext,
-                "El valor viejo  es $originalValue",
-                Toast.LENGTH_SHORT
-            ).show()
-            Toast.makeText(applicationContext, "El valor nuevo es $newValue", Toast.LENGTH_SHORT)
-                .show()
-
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
