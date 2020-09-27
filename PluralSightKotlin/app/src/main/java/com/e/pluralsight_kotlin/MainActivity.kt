@@ -1,6 +1,8 @@
 package com.e.pluralsight_kotlin
 
+import android.os.Build
 import android.os.Bundle
+import android.provider.ContactsContract
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -43,11 +46,14 @@ class MainActivity : AppCompatActivity() {
         val coursePosition = DataManager.courses.values.indexOf(note.course)
         spinnerCourses.setSelection(coursePosition)
 
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+
+
         return true
     }
 
@@ -57,7 +63,37 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_next -> {
+                moveNext()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun moveNext() {
+        /**
+         * This selection handles the increment for the notes
+         * when preseed next
+         * */
+        ++notePosition
+        displayNote()
+        invalidateOptionsMenu()
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (notePosition >= DataManager.notes.lastIndex) {
+            val menuItem = menu?.findItem(R.id.action_next)
+
+            if(menuItem != null) {
+                menuItem.icon = getDrawable(R.drawable.ic_block_white_24dp)
+                menuItem.isEnabled = false
+            }
+
+        }
+
+        return super.onPrepareOptionsMenu(menu)
     }
 }
