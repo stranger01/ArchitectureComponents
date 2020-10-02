@@ -1,4 +1,4 @@
-package com.e.pluralsight_kotlin
+package com.jwhh.notes
 
 import org.junit.Test
 

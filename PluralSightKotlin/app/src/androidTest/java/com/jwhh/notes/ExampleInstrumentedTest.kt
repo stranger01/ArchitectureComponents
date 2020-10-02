@@ -1,4 +1,4 @@
-package com.e.pluralsight_kotlin
+package com.jwhh.notes
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -18,7 +18,7 @@ class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
         // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.e.pluralsight_kotlin", appContext.packageName)
+        val appContext = InstrumentationRegistry.getTargetContext()
+        assertEquals("com.jwhh.notekeeper", appContext.packageName)
     }
 }
