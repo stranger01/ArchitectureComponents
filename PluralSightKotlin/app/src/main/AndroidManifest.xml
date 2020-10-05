@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jwhh.notes">
+    package="com.jwhh.notekeeper">
 
     <application
         android:allowBackup="true"
@@ -10,21 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.jwhh.notes.NoteActivity"
+            android:name=".NoteActivity"
             android:label="Edit Note"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.jwhh.notes.NoteListActivity"
+            android:name=".NoteListActivity"
             android:label="NoteKeeper"
             android:theme="@style/AppTheme.NoActionBar">
-
-
-
-
-
         </activity>
         <activity
-            android:name="com.jwhh.notes.ItemsActivity"
+            android:name=".ItemsActivity"
             android:label="@string/title_activity_items"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
