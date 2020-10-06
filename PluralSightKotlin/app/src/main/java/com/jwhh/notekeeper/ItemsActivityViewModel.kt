@@ -1,8 +1,14 @@
 package com.jwhh.notekeeper
 
+
 import androidx.lifecycle.ViewModel
+import com.jwhh.notekeeper.NoteInfo
+import com.jwhh.notekeeper.R
 
 class ItemsActivityViewModel : ViewModel() {
+
+    var navDrawerDisplaySelectionName = "com.jwhh.notekeeper.ItemsActivityViewModel.navDrawerDisplaySelection"
+
 
     var navDrawerDisplaySelection = R.id.nav_notes
 

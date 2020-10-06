@@ -2,6 +2,7 @@ package com.jwhh.notekeeper
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
@@ -19,7 +20,6 @@ import kotlinx.android.synthetic.main.content_items.*
 class ItemsActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
         NoteRecyclerAdapter.OnNoteSelectedListener {
-
 
 
     private val noteLayoutManager by lazy {
@@ -58,6 +58,8 @@ class ItemsActivity : AppCompatActivity(),
 
         }
 
+        if (savedInstanceState != null)
+            viewModel.navDrawerDisplaySelection = savedInstanceState.getInt(viewModel.navDrawerDisplaySelectionName)
         handleDisplaySelection(viewModel.navDrawerDisplaySelection)
 
         val toggle = ActionBarDrawerToggle(
@@ -66,6 +68,11 @@ class ItemsActivity : AppCompatActivity(),
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(viewModel.navDrawerDisplaySelectionName, viewModel.navDrawerDisplaySelection)
     }
 
     private fun displayNotes() {
@@ -156,9 +163,8 @@ class ItemsActivity : AppCompatActivity(),
     }
 
 
-
     override fun onNoteSelected(note: NoteInfo) {
-       viewModel.addToRecentlyViewedNotes(note)
+        viewModel.addToRecentlyViewedNotes(note)
     }
 
 
